@@ -1,0 +1,42 @@
+{
+  "name": "CartProduction",
+  "fields": [
+    {
+      "fieldName": "creationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "quanlity",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "cart",
+      "otherEntityRelationshipName": "cartProduction",
+      "relationshipValidateRules": "required",
+      "relationshipName": "cart",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "production",
+      "otherEntityRelationshipName": "cartProduction",
+      "relationshipValidateRules": "required",
+      "relationshipName": "prodution",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210108091115",
+  "entityTableName": "cart_production",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["tinhocdanang"]
+}

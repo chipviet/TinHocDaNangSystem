@@ -1,0 +1,23 @@
+{
+  "tinhocdanangApp": {
+    "guarantee": {
+      "home": {
+        "title": "Guarantees",
+        "createLabel": "Create a new Guarantee",
+        "createOrEditLabel": "Create or edit a Guarantee",
+        "notFound": "No Guarantees found"
+      },
+      "created": "A new Guarantee is created with identifier {{ param }}",
+      "updated": "A Guarantee is updated with identifier {{ param }}",
+      "deleted": "A Guarantee is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Guarantee {{ id }}?"
+      },
+      "detail": {
+        "title": "Guarantee"
+      },
+      "description": "Description",
+      "creationDate": "Creation Date"
+    }
+  }
+}

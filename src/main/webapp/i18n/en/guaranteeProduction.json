@@ -1,0 +1,23 @@
+{
+  "tinhocdanangApp": {
+    "guaranteeProduction": {
+      "home": {
+        "title": "Guarantee Productions",
+        "createLabel": "Create a new Guarantee Production",
+        "createOrEditLabel": "Create or edit a Guarantee Production",
+        "notFound": "No Guarantee Productions found"
+      },
+      "created": "A new Guarantee Production is created with identifier {{ param }}",
+      "updated": "A Guarantee Production is updated with identifier {{ param }}",
+      "deleted": "A Guarantee Production is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Guarantee Production {{ id }}?"
+      },
+      "detail": {
+        "title": "Guarantee Production"
+      },
+      "production": "Production",
+      "guarantee": "Guarantee"
+    }
+  }
+}

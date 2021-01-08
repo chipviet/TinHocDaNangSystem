@@ -1,0 +1,33 @@
+{
+  "tinhocdanangApp": {
+    "production": {
+      "home": {
+        "title": "Productions",
+        "createLabel": "Thêm mới một Production",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Production",
+        "notFound": "No Productions found"
+      },
+      "created": "Một Production mới được tạo với định danh {{ param }}",
+      "updated": "Một Production cập nhật với định danh {{ param }}",
+      "deleted": "Một Production đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Production {{ id }}?"
+      },
+      "detail": {
+        "title": "Production"
+      },
+      "name": "Name",
+      "price": "Price",
+      "description": "Description",
+      "imageURL": "Image URL",
+      "salePrice": "Sale Price",
+      "quantity": "Quantity",
+      "condition": "Condition",
+      "origin": "Origin",
+      "configuration": "Configuration",
+      "creationDate": "Creation Date",
+      "brand": "Brand",
+      "category": "Category"
+    }
+  }
+}

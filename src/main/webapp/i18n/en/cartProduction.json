@@ -1,0 +1,25 @@
+{
+  "tinhocdanangApp": {
+    "cartProduction": {
+      "home": {
+        "title": "Cart Productions",
+        "createLabel": "Create a new Cart Production",
+        "createOrEditLabel": "Create or edit a Cart Production",
+        "notFound": "No Cart Productions found"
+      },
+      "created": "A new Cart Production is created with identifier {{ param }}",
+      "updated": "A Cart Production is updated with identifier {{ param }}",
+      "deleted": "A Cart Production is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Cart Production {{ id }}?"
+      },
+      "detail": {
+        "title": "Cart Production"
+      },
+      "creationDate": "Creation Date",
+      "quanlity": "Quanlity",
+      "cart": "Cart",
+      "prodution": "Prodution"
+    }
+  }
+}

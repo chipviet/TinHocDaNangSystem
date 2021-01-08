@@ -1,0 +1,33 @@
+{
+  "name": "PromotionProduction",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "production",
+      "otherEntityRelationshipName": "promotionProduction",
+      "relationshipValidateRules": "required",
+      "relationshipName": "production",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "promotion",
+      "otherEntityRelationshipName": "promotionProduction",
+      "relationshipValidateRules": "required",
+      "relationshipName": "promotion",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210108090915",
+  "entityTableName": "promotion_production",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["tinhocdanang"]
+}

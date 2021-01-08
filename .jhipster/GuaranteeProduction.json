@@ -1,0 +1,33 @@
+{
+  "name": "GuaranteeProduction",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "production",
+      "otherEntityRelationshipName": "guaranteeProduction",
+      "relationshipValidateRules": "required",
+      "relationshipName": "production",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "guarantee",
+      "otherEntityRelationshipName": "guaranteeProduction",
+      "relationshipValidateRules": "required",
+      "relationshipName": "guarantee",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210108090715",
+  "entityTableName": "guarantee_production",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["tinhocdanang"]
+}

@@ -1,0 +1,23 @@
+{
+  "tinhocdanangApp": {
+    "promotionProduction": {
+      "home": {
+        "title": "Promotion Productions",
+        "createLabel": "Create a new Promotion Production",
+        "createOrEditLabel": "Create or edit a Promotion Production",
+        "notFound": "No Promotion Productions found"
+      },
+      "created": "A new Promotion Production is created with identifier {{ param }}",
+      "updated": "A Promotion Production is updated with identifier {{ param }}",
+      "deleted": "A Promotion Production is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Promotion Production {{ id }}?"
+      },
+      "detail": {
+        "title": "Promotion Production"
+      },
+      "production": "Production",
+      "promotion": "Promotion"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "tinhocdanangApp": {
+    "promotionProduction": {
+      "home": {
+        "title": "Promotion Productions",
+        "createLabel": "Thêm mới một Promotion Production",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Promotion Production",
+        "notFound": "No Promotion Productions found"
+      },
+      "created": "Một Promotion Production mới được tạo với định danh {{ param }}",
+      "updated": "Một Promotion Production cập nhật với định danh {{ param }}",
+      "deleted": "Một Promotion Production đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Promotion Production {{ id }}?"
+      },
+      "detail": {
+        "title": "Promotion Production"
+      },
+      "production": "Production",
+      "promotion": "Promotion"
+    }
+  }
+}

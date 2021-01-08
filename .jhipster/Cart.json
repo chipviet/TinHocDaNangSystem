@@ -1,0 +1,29 @@
+{
+  "name": "Cart",
+  "fields": [
+    {
+      "fieldName": "idUser",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "totalSpent",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210108091015",
+  "entityTableName": "cart",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["tinhocdanang"]
+}

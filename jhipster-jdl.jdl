@@ -1,0 +1,84 @@
+
+application {
+  config {
+    baseName tinhocdanang,
+    applicationType monolith,
+    packageName com.chipviet.tinhocdanang,
+    serverPort 8080,
+    authenticationType jwt,
+    prodDatabaseType mysql,
+    cacheProvider ehcache,
+    enableHibernateCache true,
+    buildTool maven,
+    enableSwaggerCodegen true,
+    languages [en,vi],
+    nativeLanguage vi,
+    clientFramework react
+  }
+  entities *
+}
+
+entity Production {
+	name String required,
+    price Long required,
+    description String,
+    imageURL String,
+    salePrice Long,
+    quantity Long,
+    condition Double,
+    origin String,
+    configuration String,
+    creationDate LocalDate,
+}
+
+entity Category {
+	name String required
+}
+
+entity Brand {
+	name String required,
+    iconURL String,
+}
+
+entity Guarantee {
+	description String,
+    creationDate LocalDate,
+}
+
+entity GuaranteeProduction {
+}
+
+entity Promotion {
+	desciption String,
+    linkToPromotionalProducts String,
+}
+
+entity PromotionProduction {
+}
+
+entity Cart {
+	idUser Long,
+    totalSpent Long,
+    creationDate LocalDate,
+}
+
+entity CartProduction {
+	creationDate LocalDate,
+    quanlity Long
+}
+
+relationship ManyToOne {
+    GuaranteeProduction{production required} to Production,
+    GuaranteeProduction{guarantee required} to Guarantee,
+    PromotionProduction{production required} to Production,
+    PromotionProduction{promotion required} to Promotion,
+    CartProduction{cart required} to Cart,
+    CartProduction {prodution required} to Production,
+    Production{brand required} to Brand,
+  	Production{category required} to Category,
+    
+
+}
+
+
+paginate Production, Cart, CartProduction, Promotion, PromotionProduction, GuaranteeProduction, Guarantee, GuaranteeProduction   with pagination 

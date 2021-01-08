@@ -1,0 +1,25 @@
+{
+  "tinhocdanangApp": {
+    "cartProduction": {
+      "home": {
+        "title": "Cart Productions",
+        "createLabel": "Thêm mới một Cart Production",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Cart Production",
+        "notFound": "No Cart Productions found"
+      },
+      "created": "Một Cart Production mới được tạo với định danh {{ param }}",
+      "updated": "Một Cart Production cập nhật với định danh {{ param }}",
+      "deleted": "Một Cart Production đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Cart Production {{ id }}?"
+      },
+      "detail": {
+        "title": "Cart Production"
+      },
+      "creationDate": "Creation Date",
+      "quanlity": "Quanlity",
+      "cart": "Cart",
+      "prodution": "Prodution"
+    }
+  }
+}
