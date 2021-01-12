@@ -37,9 +37,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:file:./target/h2db/db/tinhocdanang;DB_CLOSE_DELAY=-1
-    username: tinhocdanang
-    password:
+    url: jdbc:mysql://localhost:3306/tinhocdanang?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: root
+    password: smd@12345
     hikari:
       poolName: Hikari
       auto-commit: false

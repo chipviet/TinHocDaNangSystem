@@ -14,14 +14,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,13 +60,75 @@ public class ProductionResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new production, or with status {@code 400 (Bad Request)} if the production has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/productions")
-    public ResponseEntity<Production> createProduction(@Valid @RequestBody Production production) throws URISyntaxException {
+    @RequestMapping(value="/productions", method = RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE,
+        consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ResponseBody
+    public ResponseEntity<Production> createProduction(@Valid @RequestPart("properties") Production production, @RequestPart("files") MultipartFile[] files) throws URISyntaxException, IOException {
         log.debug("REST request to save Production : {}", production);
         if (production.getId() != null) {
             throw new BadRequestAlertException("A new production cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Production result = productionRepository.save(production);
+
+        Production latestProduction = productionRepository.getLatestProduction();
+        log.debug("latestId : {}", latestProduction);
+        String folder = "/Users/sangpham/Documents/ChipViet/MyProjects/TinHocDaNangWeb/src/main/java/com/chipviet/tinhocdanang/assets/" + latestProduction.getId().toString();
+
+        System.out.println("fileImages:" + files.length);
+        for(int i = 0; i < files.length; i++){
+            System.out.println("file");
+        }
+        System.out.println("1");
+        List<File> uploadedFiles = new ArrayList<File>();
+        System.out.println("2");
+        Production newProduct = new Production();
+        System.out.println("3");
+        List<String> listURL = new ArrayList<>();
+        System.out.println("4");
+        try{
+            System.out.println("5");
+            for(MultipartFile fileImage : files) {
+                System.out.println("Move on loop");
+                try {
+                    File file = new File(folder);
+                    boolean bool = file.mkdirs();
+                    if(bool){
+                        System.out.println("Directory created successfully");
+                    }else{
+                        System.out.println("Sorry couldnt create specified directory");
+                    }
+                    File serverFile = new File(folder + File.separator + fileImage.getOriginalFilename());
+
+                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                    stream.write(fileImage.getBytes());
+                    stream.close();
+
+                    uploadedFiles.add(serverFile);
+
+                    listURL.add(serverFile.getAbsolutePath());
+                    System.out.println("Write file:" + serverFile);
+                } catch (Exception e) {
+                    System.out.println("Failure");
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        System.out.println("out loop");
+ //       newProduct.setImageURL(listURL);
+        newProduct.setId(production.getId());
+        newProduct.setName(production.getName());
+        newProduct.setPrice(production.getPrice());
+        newProduct.setDescription(production.getDescription());
+        newProduct.setSalePrice(production.getSalePrice());
+        newProduct.setConfiguration(production.getConfiguration());
+        newProduct.setCondition(production.getCondition());
+        newProduct.setOrigin(production.getOrigin());
+        newProduct.setCreationDate(production.getCreationDate());
+        newProduct.setBrand(production.getBrand());
+        newProduct.setCategory(production.getCategory());
+        Production result = productionRepository.save(newProduct);
         return ResponseEntity.created(new URI("/api/productions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

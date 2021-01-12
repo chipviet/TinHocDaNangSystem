@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ProductionRepository extends JpaRepository<Production, Long> {
+
+    @Query(value = "SELECT * FROM tinhocdanang.production ORDER BY id DESC LIMIT 1;",nativeQuery = true)
+    Production getLatestProduction();
 }

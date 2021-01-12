@@ -15,12 +15,15 @@ import { getEntity, updateEntity, createEntity, reset } from './production.reduc
 import { IProduction } from 'app/shared/model/production.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
+import { FilePicker } from 'react-file-picker'
 
 export interface IProductionUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const ProductionUpdate = (props: IProductionUpdateProps) => {
   const [brandId, setBrandId] = useState('0');
   const [categoryId, setCategoryId] = useState('0');
+  const [arrayFiles , setArrayFiles] = useState([]);
+  const [selectedFile, setSelectedFile] = useState('');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
   const { productionEntity, brands, categories, loading, updating } = props;
@@ -46,13 +49,21 @@ export const ProductionUpdate = (props: IProductionUpdateProps) => {
     }
   }, [props.updateSuccess]);
 
+  /* eslint-disable */
+  const uploadImage = (FileObject) => {
+    console.log("FIleUpload",FileObject);
+    setArrayFiles(arrayFiles => [...arrayFiles,FileObject]);
+    console.log("arrayFiles", arrayFiles);
+  } 
+
   const saveEntity = (event, errors, values) => {
+    const listImage = []
     if (errors.length === 0) {
+      const listImage = []
       const entity = {
         ...productionEntity,
         ...values,
       };
-
       if (isNew) {
         props.createEntity(entity);
       } else {
@@ -118,12 +129,23 @@ export const ProductionUpdate = (props: IProductionUpdateProps) => {
                 </Label>
                 <AvField id="production-description" type="text" name="description" />
               </AvGroup>
-              <AvGroup>
-                <Label id="imageURLLabel" for="production-imageURL">
-                  <Translate contentKey="tinhocdanangApp.production.imageURL">Image URL</Translate>
-                </Label>
-                <AvField id="production-imageURL" type="text" name="imageURL" />
-              </AvGroup>
+
+               <FilePicker
+                  extensions = {['jpg','jpeg','png']}
+                  onChange={FileObject => uploadImage(FileObject)}
+                  onError={errMsg => console.warn(errMsg)}
+                  >
+                    <div>
+                      <Label id="cardimageLabel" for="card-type-cardImage">
+                        <Translate contentKey="ccpTatemApp.cardType.cardImage">Image</Translate>
+                      </Label>
+                      
+                      <Button type="button" color="info" className="ml-1" >
+                        <FontAwesomeIcon icon="save" size="sm" />
+                      </Button>
+                      <AvInput enctype="multipart/form-data" id = "card-type-cardImage" type="hidden" value={arrayFiles}  name="imageFile" />
+                    </div>
+                  </FilePicker>
               <AvGroup>
                 <Label id="salePriceLabel" for="production-salePrice">
                   <Translate contentKey="tinhocdanangApp.production.salePrice">Sale Price</Translate>

@@ -5,6 +5,7 @@ import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
 import { IProduction, defaultValue } from 'app/shared/model/production.model';
+import { IProductionDTO } from 'app/shared/model/productionDTO.model';
 
 export const ACTION_TYPES = {
   FETCH_PRODUCTION_LIST: 'production/FETCH_PRODUCTION_LIST',
@@ -18,7 +19,7 @@ export const ACTION_TYPES = {
 const initialState = {
   loading: false,
   errorMessage: null,
-  entities: [] as ReadonlyArray<IProduction>,
+  entities: [] as ReadonlyArray<IProductionDTO>,
   entity: defaultValue,
   updating: false,
   totalItems: 0,
@@ -117,10 +118,22 @@ export const getEntity: ICrudGetAction<IProduction> = id => {
   };
 };
 
-export const createEntity: ICrudPutAction<IProduction> = entity => async dispatch => {
+/* eslint-disable */
+export const createEntity: ICrudPutAction<IProductionDTO> = entity => async dispatch => {
+  const formData = new FormData();
+  for (var i = 0; i < entity.imageFile.length; i++) {
+    formData.append('files', entity.imageFile[i]);
+  }
+  formData.append(
+    'properties',
+    new Blob([JSON.stringify(entity)], {
+      type: 'application/json',
+    })
+  );
+
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_PRODUCTION,
-    payload: axios.post(apiUrl, cleanEntity(entity)),
+    payload: axios.post(apiUrl, formData),
   });
   dispatch(getEntities());
   return result;

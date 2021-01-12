@@ -85,7 +85,7 @@ public class ProductionResourceIT {
             .name(DEFAULT_NAME)
             .price(DEFAULT_PRICE)
             .description(DEFAULT_DESCRIPTION)
-            .imageURL(DEFAULT_IMAGE_URL)
+//            .imageURL(DEFAULT_IMAGE_URL)
             .salePrice(DEFAULT_SALE_PRICE)
             .quantity(DEFAULT_QUANTITY)
             .condition(DEFAULT_CONDITION)
@@ -125,7 +125,7 @@ public class ProductionResourceIT {
             .name(UPDATED_NAME)
             .price(UPDATED_PRICE)
             .description(UPDATED_DESCRIPTION)
-            .imageURL(UPDATED_IMAGE_URL)
+//            .imageURL(UPDATED_IMAGE_URL)
             .salePrice(UPDATED_SALE_PRICE)
             .quantity(UPDATED_QUANTITY)
             .condition(UPDATED_CONDITION)
@@ -266,7 +266,7 @@ public class ProductionResourceIT {
             .andExpect(jsonPath("$.[*].configuration").value(hasItem(DEFAULT_CONFIGURATION)))
             .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getProduction() throws Exception {
@@ -313,7 +313,7 @@ public class ProductionResourceIT {
             .name(UPDATED_NAME)
             .price(UPDATED_PRICE)
             .description(UPDATED_DESCRIPTION)
-            .imageURL(UPDATED_IMAGE_URL)
+//            .imageURL(UPDATED_IMAGE_URL)
             .salePrice(UPDATED_SALE_PRICE)
             .quantity(UPDATED_QUANTITY)
             .condition(UPDATED_CONDITION)
