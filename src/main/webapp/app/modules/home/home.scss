@@ -8,3 +8,27 @@ Main page styles
   background: url('../../../content/images/jhipster_family_member_0.svg') no-repeat center top;
   background-size: contain;
 }
+.home-root {
+  display: flex;
+  padding: 0 50px;
+}
+.sidebar__container {
+  border: 1px solid black;
+  height: 100%;
+  flex: 1;
+}
+.card-items__wrapper {
+  display: flex;
+  flex: 4;
+  flex-direction: column;
+}
+.card-items__container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.card-item {
+  width: 25%;
+  padding: 10px;
+  border: 1px solid #eeeeee;
+}

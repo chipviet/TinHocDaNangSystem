@@ -9,7 +9,7 @@ import appConfig from 'app/config/constants';
 
 export const BrandIcon = props => (
   <div {...props} className="brand-icon">
-    <img src="content/images/logo-jhipster.png" alt="Logo" />
+    <img src="content/images/chipviet.png" alt="Logo" />
   </div>
 );
 
@@ -17,7 +17,7 @@ export const Brand = props => (
   <NavbarBrand tag={Link} to="/" className="brand-logo">
     <BrandIcon />
     <span className="brand-title">
-      <Translate contentKey="global.title">Tinhocdanang</Translate>
+      <Translate contentKey="global.title">Chip Việt</Translate>
     </span>
     <span className="navbar-version">{appConfig.VERSION}</span>
   </NavbarBrand>
@@ -27,7 +27,7 @@ export const Home = props => (
   <NavItem>
     <NavLink tag={Link} to="/" className="d-flex align-items-center">
       <FontAwesomeIcon icon="home" />
-      <span>
+      <span className="brand-item">
         <Translate contentKey="global.menu.home">Home</Translate>
       </span>
     </NavLink>

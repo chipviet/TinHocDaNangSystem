@@ -1,109 +1,162 @@
-import './home.scss';
-
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { Button, Col, Row, Table } from 'reactstrap';
+import { Translate, ICrudGetAllAction, TextFormat, getSortState, IPaginationBaseState, JhiPagination, JhiItemCount } from 'react-jhipster';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
+import { getEntities } from '../../entities/production/production.reducer';
+import { IProduction } from 'app/shared/model/production.model';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import './home.scss';
+export interface IProductionProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export type IHomeProp = StateProps;
+export const Home = (props: IProductionProps) => {
+  const [paginationState, setPaginationState] = useState(
+    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
+  );
 
-export const Home = (props: IHomeProp) => {
-  const { account } = props;
+  const getAllEntities = () => {
+    props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
+  };
 
+  const sortEntities = () => {
+    getAllEntities();
+    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
+    if (props.location.search !== endURL) {
+      props.history.push(`${props.location.pathname}${endURL}`);
+    }
+  };
+
+  useEffect(() => {
+    sortEntities();
+  }, [paginationState.activePage, paginationState.order, paginationState.sort]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(props.location.search);
+    const page = params.get('page');
+    const sort = params.get('sort');
+    if (page && sort) {
+      const sortSplit = sort.split(',');
+      setPaginationState({
+        ...paginationState,
+        activePage: +page,
+        sort: sortSplit[0],
+        order: sortSplit[1],
+      });
+    }
+  }, [props.location.search]);
+
+  const sort = p => () => {
+    setPaginationState({
+      ...paginationState,
+      order: paginationState.order === 'asc' ? 'desc' : 'asc',
+      sort: p,
+    });
+  };
+
+  const handlePagination = currentPage =>
+    setPaginationState({
+      ...paginationState,
+      activePage: currentPage,
+    });
+
+  const { productionList, match, loading, totalItems } = props;
   return (
-    <Row>
-      <Col md="9">
-        <h2>
-          <Translate contentKey="home.title">Welcome, Java Hipster!</Translate>
-        </h2>
-        <p className="lead">
-          <Translate contentKey="home.subtitle">This is your homepage</Translate>
-        </p>
-        {account && account.login ? (
-          <div>
-            <Alert color="success">
-              <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
-                You are logged in as user {account.login}.
-              </Translate>
-            </Alert>
-          </div>
-        ) : (
-          <div>
-            <Alert color="warning">
-              <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
-              <Link to="/login" className="alert-link">
-                <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
-              </Link>
-              <Translate contentKey="global.messages.info.authenticated.suffix">
-                , you can try the default accounts:
-                <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-                <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-              </Translate>
-            </Alert>
-
-            <Alert color="warning">
-              <Translate contentKey="global.messages.info.register.noaccount">You do not have an account yet?</Translate>&nbsp;
-              <Link to="/account/register" className="alert-link">
-                <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
-              </Link>
-            </Alert>
-          </div>
-        )}
-        <p>
-          <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
-        </p>
-
-        <ul>
-          <li>
-            <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.homepage">JHipster homepage</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.stackoverflow">JHipster on Stack Overflow</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.bugtracker">JHipster bug tracker</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.chat">JHipster public chat room</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.follow">follow @jhipster on Twitter</Translate>
-            </a>
-          </li>
-        </ul>
-
-        <p>
-          <Translate contentKey="home.like">If you like JHipster, do not forget to give us a star on</Translate>{' '}
-          <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-            Github
-          </a>
-          !
-        </p>
-      </Col>
-      <Col md="3" className="pad">
-        <span className="hipster rounded" />
-      </Col>
-    </Row>
+    <div className="home-root">
+      <div className="sidebar__container">dsjdisa</div>
+      <div className="card-items__wrapper">
+        <div className="card-items__container">
+          {productionList && productionList.length > 0 ? (
+            <>
+              {productionList.map((production, i) => (
+                <div key={`entity-${i}`} className="card-item">
+                  <p>
+                    <Button tag={Link} to={`${match.url}/${production.id}`} color="link" size="sm">
+                      {production.id}
+                    </Button>
+                  </p>
+                  <p>{production.name}</p>
+                  <p>{production.price}</p>
+                  <p>{production.description}</p>
+                  <p>{production.imageURL}</p>
+                  <p>{production.salePrice}</p>
+                  <p>{production.quantity}</p>
+                  <p>{production.condition}</p>
+                  <p>{production.origin}</p>
+                  <p>{production.configuration}</p>
+                  <p>
+                    {production.creationDate ? (
+                      <TextFormat type="date" value={production.creationDate} format={APP_LOCAL_DATE_FORMAT} />
+                    ) : null}
+                  </p>
+                  <p>{production.brand ? <Link to={`brand/${production.brand.id}`}>{production.brand.id}</Link> : ''}</p>
+                  <p>{production.category ? <Link to={`category/${production.category.id}`}>{production.category.id}</Link> : ''}</p>
+                  <p className="text-right">
+                    <div className="btn-group flex-btn-group-container">
+                      <Button tag={Link} to={`${match.url}/${production.id}`} color="info" size="sm">
+                        <FontAwesomeIcon icon="eye" />{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.view">View</Translate>
+                        </span>
+                      </Button>
+                    </div>
+                  </p>
+                </div>
+              ))}
+            </>
+          ) : (
+            !loading && (
+              <div className="alert alert-warning">
+                <Translate contentKey="tinhocdanangApp.production.home.notFound">No Productions found</Translate>
+              </div>
+            )
+          )}
+        </div>
+        <div>
+          {props.totalItems ? (
+            <div className={productionList && productionList.length > 0 ? null : 'd-none'}>
+              <Row className="justify-content-center">
+                <JhiItemCount
+                  page={paginationState.activePage}
+                  total={totalItems}
+                  itemsPerPage={paginationState.itemsPerPage}
+                  i18nEnabled
+                />
+              </Row>
+              <Row className="justify-content-center">
+                <JhiPagination
+                  activePage={paginationState.activePage}
+                  onSelect={handlePagination}
+                  maxButtons={5}
+                  itemsPerPage={paginationState.itemsPerPage}
+                  totalItems={props.totalItems}
+                />
+              </Row>
+            </div>
+          ) : (
+            ''
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
-const mapStateToProps = storeState => ({
-  account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated,
+const mapStateToProps = ({ production }: IRootState) => ({
+  productionList: production.entities,
+  loading: production.loading,
+  totalItems: production.totalItems,
 });
 
-type StateProps = ReturnType<typeof mapStateToProps>;
+const mapDispatchToProps = {
+  getEntities,
+};
 
-export default connect(mapStateToProps)(Home);
+type StateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = typeof mapDispatchToProps;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
