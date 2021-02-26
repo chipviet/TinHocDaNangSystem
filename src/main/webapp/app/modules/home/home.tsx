@@ -67,7 +67,7 @@ export const Home = (props: IProductionProps) => {
   const { productionList, match, loading, totalItems } = props;
   return (
     <div className="home-root">
-      <div className="sidebar__container">dsjdisa</div>
+      <div className="sidebar__container">dsjdisahcghcgfcgvchfhgdfghdfghjdefghdfgh</div>
       <div className="card-items__wrapper">
         <div className="card-items__container">
           {productionList && productionList.length > 0 ? (

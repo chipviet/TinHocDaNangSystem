@@ -15,11 +15,12 @@ Main page styles
 .sidebar__container {
   border: 1px solid black;
   height: 100%;
-  flex: 1;
+  max-width: 200px;
+  position: fixed;
 }
 .card-items__wrapper {
   display: flex;
-  flex: 4;
+  margin-left: 200px;
   flex-direction: column;
 }
 .card-items__container {
